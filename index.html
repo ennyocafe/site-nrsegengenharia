@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NR SEG Engenharia - Seguranca e Saude do Trabalho</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --green-dark: #416900;
+      --green-light: #ACF847;
+      --bg1: #F8F9FF;
+      --bg2: #EFF4FF;
+      --navy: #001D31;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit', sans-serif; background: var(--bg1); color: var(--text); }
+
+    h1, h2, h3, .sec-title, .hero h1, .cl-title, .mvv-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* lucide icon defaults */
+    [data-lucide] { display: inline-block; vertical-align: middle; stroke-width: 2; }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--navy);
+      text-align: center;
+      padding: 9px 20px;
+      font-size: 13px;
+      color: #9bb3c8;
+    }
+    .topbar-inner { display: inline-flex; align-items: center; gap: 8px; }
+    .topbar-dot { width: 7px; height: 7px; background: var(--green-light); border-radius: 50%; flex-shrink: 0; }
+
+    /* ── NAVBAR ── */
+    .navbar-wrap {
+      background: transparent;
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .navbar {
+      background: rgba(255,255,255,.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 999px;
+      padding: 8px 10px 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1180px;
+      margin: 0 auto;
+      box-shadow: 0 4px 32px rgba(0,0,0,.1);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-circle {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-circle img { height: 44px; width: auto; }
+    .nav-brand { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; color: var(--navy); letter-spacing: .3px; }
+    .nav-links { display: flex; gap: 2px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: #374151;
+      font-size: 14px; font-weight: 500;
+      padding: 7px 14px;
+      border-radius: 999px;
+      transition: color .2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--green-dark); font-weight: 600; }
+    .nav-links a.active { text-decoration: underline; text-underline-offset: 3px; }
+    .btn-cta {
+      background: var(--green-light);
+      color: var(--navy);
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-weight: 700; font-size: 14px;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+      white-space: nowrap;
+    }
+    .btn-cta:hover { background: #96d63f; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy);
+      height: 92vh;
+      min-height: 600px;
+      display: flex; align-items: stretch;
+      position: relative; overflow: hidden;
+    }
+    .hero-stripe1, .hero-stripe2 { display: none; }
+
+    /* ── HERO GLOW ── */
+    @keyframes glow-drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      33%  { transform: translate(40px, -30px) scale(1.08); }
+      66%  { transform: translate(-30px, 20px) scale(0.95); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes glow-drift2 {
+      0%   { transform: translate(0, 0) scale(1); }
+      33%  { transform: translate(-50px, 30px) scale(1.1); }
+      66%  { transform: translate(30px, -20px) scale(0.92); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    .hero-glow1 {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,80,200,.18) 0%, transparent 70%);
+      filter: blur(60px);
+      top: -100px; left: 10%;
+      animation: glow-drift 12s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .hero-glow2 {
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(20,120,255,.13) 0%, transparent 70%);
+      filter: blur(80px);
+      bottom: -80px; right: 20%;
+      animation: glow-drift2 16s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .hero-glow3 {
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(100,180,255,.1) 0%, transparent 70%);
+      filter: blur(50px);
+      top: 40%; left: 35%;
+      animation: glow-drift 20s ease-in-out infinite reverse;
+      pointer-events: none;
+    }
+    .hero-container {
+      max-width: 1180px; margin: 0 auto; padding: 0 40px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 0;
+      position: relative; z-index: 3;
+      width: 100%; height: 100%;
+    }
+    .hero-content { padding: 60px 0; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(172,248,71,.13);
+      border: 1px solid rgba(172,248,71,.3);
+      color: var(--green-light);
+      font-size: 11px; font-weight: 700;
+      padding: 5px 14px; border-radius: 999px;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(30px, 4.2vw, 52px);
+      font-weight: 700; color: #fff; line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero h1 .accent { color: var(--green-light); }
+    .hero-desc {
+      color: #8daabb; font-size: 15px; line-height: 1.75;
+      margin-bottom: 36px; max-width: 480px;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--green-light); color: var(--navy);
+      padding: 13px 28px; border-radius: 999px;
+      font-weight: 700; font-size: 15px; text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+    .btn-primary:hover { background: #96d63f; transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,.25);
+      color: #fff;
+      padding: 13px 28px; border-radius: 999px;
+      font-weight: 600; font-size: 15px; text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-ghost:hover { border-color: var(--green-light); color: var(--green-light); }
+    .btn-ghost [data-lucide] { width: 16px; height: 16px; }
+    .hero-img {
+      position: absolute;
+      right: 0;
+      bottom: -120px;
+      width: 50%;
+      z-index: 1;
+      line-height: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .hero-img img {
+      display: block;
+      width: 90%;
+      height: auto;
+      max-height: 88vh;
+      object-fit: contain;
+      object-position: bottom center;
+    }
+
+    /* ── SECTIONS BASE ── */
+    section { padding: 90px 0; }
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+    .badge {
+      display: inline-block;
+      background: rgba(65,105,0,.1);
+      border: 1px solid rgba(65,105,0,.2);
+      color: var(--green-dark);
+      font-size: 11px; font-weight: 700;
+      padding: 4px 14px; border-radius: 999px;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .sec-title {
+      font-size: clamp(24px, 3.2vw, 38px);
+      font-weight: 700; color: var(--navy); line-height: 1.2;
+    }
+    .sec-sub {
+      font-size: 15px; color: var(--muted);
+      line-height: 1.75; max-width: 620px;
+    }
+
+    /* ── WHY ── */
+    .why-sec { background: var(--bg2); }
+    .why-header {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: start;
+      margin-bottom: 36px;
+    }
+    .why-header-left .sec-title { font-size: clamp(28px, 3.6vw, 44px); font-weight: 700; line-height: 1.1; margin-top: 10px; }
+    .why-header-right { padding-top: 48px; }
+    .why-header-right p { color: #4b5563; font-size: 15px; line-height: 1.75; }
+    .why-cards {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    }
+    .why-card {
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: 18px; padding: 24px;
+      cursor: default; transition: all .3s ease;
+      display: flex; flex-direction: column;
+    }
+    .why-card:hover {
+      background: var(--green-light);
+      border-color: var(--green-light);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(172,248,71,.22);
+    }
+    .why-card:hover .wc-icon { background: var(--green-dark); }
+    .why-card:hover .wc-icon [data-lucide] { color: var(--green-light); }
+    .why-card:hover .wc-desc { color: #2e4700; }
+    .why-card:hover .wc-tag { color: var(--green-dark); }
+    .wc-icon {
+      width: 44px; height: 44px;
+      background: rgba(65,105,0,.08);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+      transition: background .3s;
+      flex-shrink: 0;
+    }
+    .wc-icon [data-lucide] { width: 20px; height: 20px; color: var(--green-dark); transition: color .3s; }
+    .wc-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 10px; line-height: 1.3; }
+    .wc-desc { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; transition: color .3s; flex: 1; }
+    .wc-tag { font-size: 11px; font-weight: 700; color: var(--green-dark); letter-spacing: .8px; text-transform: uppercase; transition: color .3s; display: flex; align-items: center; gap: 5px; margin-top: auto; }
+    .wc-tag [data-lucide] { width: 12px; height: 12px; }
+
+    /* ── SERVICES ── */
+    .services-sec { background: var(--bg1); }
+    .services-tabs { display: flex; gap: 8px; margin: 36px 0 28px; flex-wrap: wrap; }
+    .tab-btn {
+      padding: 9px 20px; border-radius: 999px;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px; font-weight: 600; color: #374151;
+      cursor: pointer; display: flex; align-items: center; gap: 7px;
+      transition: all .2s;
+    }
+    .tab-btn [data-lucide] { width: 15px; height: 15px; }
+    .tab-btn:hover { border-color: var(--green-dark); color: var(--green-dark); }
+    .tab-btn.active { background: var(--navy); border-color: var(--navy); color: var(--green-light); }
+    .tab-btn.active [data-lucide] { color: var(--green-light); }
+    .svc-grid { display: none; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .svc-grid.active { display: grid; }
+    .svc-card {
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: 16px; padding: 22px;
+      transition: all .25s;
+    }
+    .svc-card:hover {
+      border-color: var(--green-light);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(65,105,0,.08);
+    }
+    .svc-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--green-light); color: var(--green-dark);
+      font-size: 9px; font-weight: 800; padding: 4px 8px;
+      border-radius: 7px; margin-bottom: 11px; letter-spacing: .5px;
+    }
+    .svc-card h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 9px; }
+    .svc-card p { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 13px; }
+    .svc-tag { font-size: 11px; font-weight: 700; color: var(--green-dark); text-transform: uppercase; letter-spacing: .8px; }
+
+    /* ── TRAININGS ── */
+    .train-sec { background: var(--bg2); }
+    .train-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 14px; margin-top: 44px;
+    }
+    .train-card {
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: 16px; padding: 20px;
+      position: relative; transition: all .3s;
+    }
+    .train-card:hover {
+      background: var(--green-light);
+      border-color: var(--green-light);
+      transform: translateY(-5px);
+      box-shadow: 0 14px 36px rgba(172,248,71,.22);
+    }
+    .train-card:hover .tnr { background: var(--green-dark); color: var(--green-light); }
+    .train-card:hover .tdesc { color: #2e4700; }
+    .train-card:hover .ttag { color: var(--green-dark); }
+    .train-card:hover .ticon [data-lucide] { color: var(--green-dark); }
+    .tnr {
+      display: inline-block;
+      background: var(--green-light); color: var(--green-dark);
+      font-size: 9px; font-weight: 800;
+      padding: 3px 8px; border-radius: 6px;
+      margin-bottom: 9px; letter-spacing: .4px;
+      transition: all .3s;
+    }
+    .ticon {
+      position: absolute; top: 18px; right: 18px;
+    }
+    .ticon [data-lucide] { width: 15px; height: 15px; color: #d1d5db; transition: color .3s; }
+    .ttitle { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 7px; }
+    .tdesc { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 13px; transition: color .3s; }
+    .ttag { font-size: 10px; font-weight: 700; color: var(--green-dark); text-transform: uppercase; letter-spacing: .7px; transition: color .3s; }
+
+    /* ── MVV ── */
+    .mvv-sec { background: var(--navy); padding: 90px 0; }
+    .mvv-sec .badge { background: rgba(172,248,71,.13); border-color: rgba(172,248,71,.3); color: var(--green-light); }
+    .mvv-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 44px; }
+    .mvv-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px; padding: 32px;
+    }
+    .mvv-icon {
+      width: 50px; height: 50px;
+      background: rgba(172,248,71,.13);
+      border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .mvv-icon [data-lucide] { width: 24px; height: 24px; color: var(--green-light); }
+    .mvv-card h3 { font-size: 21px; font-weight: 700; color: #fff; margin-bottom: 14px; }
+    .mvv-card p { font-size: 14px; color: #8daabb; line-height: 1.8; font-style: italic; margin-bottom: 24px; }
+    .mvv-foot { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--green-light); font-weight: 600; }
+    .mvv-foot [data-lucide] { width: 13px; height: 13px; color: var(--green-light); }
+    .val-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .val-tag {
+      padding: 6px 13px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      color: #8daabb; font-size: 13px; font-weight: 500;
+      transition: all .4s;
+    }
+    .val-tag.lit {
+      background: var(--green-light);
+      border-color: var(--green-light);
+      color: var(--green-dark); font-weight: 700;
+    }
+
+    /* ── TEAM ── */
+    .team-sec { background: var(--bg1); }
+    .team-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 28px; margin-top: 44px;
+      max-width: 940px; margin-left: auto; margin-right: auto;
+    }
+    .team-card {
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: 20px; padding: 28px;
+      display: flex; gap: 22px; align-items: flex-start;
+      transition: all .3s;
+    }
+    .team-card:hover { border-color: var(--green-light); box-shadow: 0 8px 32px rgba(65,105,0,.1); }
+    .tc-photo img {
+      width: 118px; border-radius: 13px;
+      object-fit: cover;
+    }
+    .tc-role-badge {
+      display: inline-block;
+      background: rgba(65,105,0,.1); color: var(--green-dark);
+      font-size: 10px; font-weight: 700;
+      padding: 3px 10px; border-radius: 999px;
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 7px;
+    }
+    .tc-info h3 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+    .tc-role { font-size: 13px; color: var(--green-dark); font-weight: 600; margin-bottom: 13px; }
+    .tc-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .tc-list li {
+      font-size: 12px; color: #4b5563; line-height: 1.5;
+      display: flex; gap: 7px; align-items: flex-start;
+    }
+    .tc-list li [data-lucide] { width: 12px; height: 12px; color: var(--green-dark); flex-shrink: 0; margin-top: 2px; }
+
+    /* ── CONTACT ── */
+    .contact-sec { background: var(--bg2); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 44px; }
+    .cl-title { font-size: 30px; font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 12px; }
+    .cl-desc { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 22px; }
+    .map-wrap { border-radius: 16px; overflow: hidden; border: 2px solid var(--border); }
+    .form-card {
+      background: #fff; border-radius: 20px;
+      padding: 34px; border: 1.5px solid var(--border);
+    }
+    .form-badge {
+      display: inline-block;
+      background: rgba(65,105,0,.1); color: var(--green-dark);
+      font-size: 11px; font-weight: 700;
+      padding: 4px 12px; border-radius: 999px;
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .form-card h3 { font-size: 21px; font-weight: 700; color: var(--navy); margin-bottom: 7px; }
+    .form-sub { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 22px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-bottom: 13px; }
+    .fgrp { display: flex; flex-direction: column; gap: 5px; }
+    .fgrp label { font-size: 13px; font-weight: 600; color: #374151; }
+    .fgrp input, .fgrp select, .fgrp textarea {
+      border: 1.5px solid var(--border); border-radius: 10px;
+      padding: 10px 13px;
+      font-family: 'Outfit', sans-serif; font-size: 14px; color: #374151;
+      outline: none; background: #fff; transition: border-color .2s;
+    }
+    .fgrp input:focus, .fgrp select:focus, .fgrp textarea:focus { border-color: var(--green-dark); }
+    .fgrp textarea { resize: vertical; min-height: 76px; }
+    .btn-wpp {
+      width: 100%; background: var(--green-light); color: var(--navy);
+      border: none; padding: 15px 24px; border-radius: 12px;
+      font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 14px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      transition: background .2s, transform .2s;
+      margin-top: 18px; text-decoration: none;
+    }
+    .btn-wpp:hover { background: #96d63f; transform: translateY(-2px); }
+    .form-note { text-align: center; font-size: 12px; color: #9ca3af; margin-top: 9px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy); padding: 64px 0 0; }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.3fr;
+      gap: 48px; padding-bottom: 48px;
+    }
+    .foot-logo { margin-bottom: 14px; }
+    .foot-logo img { height: 60px; width: auto; }
+    .foot-desc { font-size: 13px; color: #6a8ea4; line-height: 1.8; margin-bottom: 18px; }
+    .foot-socials { display: flex; gap: 9px; }
+    .soc-btn {
+      width: 34px; height: 34px; background: rgba(255,255,255,.07);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      color: #8daabb; text-decoration: none; transition: all .2s;
+    }
+    .soc-btn:hover { background: var(--green-light); color: var(--navy); }
+    .soc-btn [data-lucide] { width: 15px; height: 15px; }
+    .soc-btn:hover [data-lucide] { color: var(--navy); }
+    .foot-col h4 { font-size: 11px; font-weight: 700; color: var(--green-light); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px; }
+    .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .foot-col ul li a { text-decoration: none; color: #6a8ea4; font-size: 14px; transition: color .2s; }
+    .foot-col ul li a:hover { color: var(--green-light); }
+    .fc-item { display: flex; gap: 9px; align-items: flex-start; margin-bottom: 11px; }
+    .fc-ico { color: var(--green-light); flex-shrink: 0; margin-top: 2px; }
+    .fc-ico [data-lucide] { width: 14px; height: 14px; color: var(--green-light); }
+    .fc-item span { font-size: 13px; color: #6a8ea4; line-height: 1.55; }
+    .foot-bottom {
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding: 18px 0;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .foot-bottom p { font-size: 12px; color: #3f5a6e; }
+    .back-top { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #3f5a6e; text-decoration: none; transition: color .2s; }
+    .back-top:hover { color: var(--green-light); }
+    .back-top [data-lucide] { width: 14px; height: 14px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero { height: auto; min-height: 85vh; }
+      .hero-container { grid-template-columns: 1fr; }
+      .hero-img { display: none; }
+      .why-header { grid-template-columns: 1fr; gap: 12px; }
+      .why-header-right { padding-top: 0; }
+      .why-cards { grid-template-columns: repeat(2,1fr); }
+      .svc-grid { grid-template-columns: repeat(2,1fr); }
+      .train-grid { grid-template-columns: repeat(2,1fr); }
+      .mvv-cards { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; max-width: 480px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .navbar { border-radius: 16px; }
+      .nav-links { display: none; }
+      .container { padding: 0 20px; }
+      .svc-grid { grid-template-columns: 1fr; }
+      .train-grid { grid-template-columns: 1fr 1fr; }
+      .why-cards { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .team-card { flex-direction: column; }
+      .hero-container { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span class="topbar-inner">
+    <span class="topbar-dot"></span>
+    Atendimento em Petrolina - PE e em todo o Vale do Sao Francisco
+  </span>
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar-wrap" id="top">
+  <nav class="navbar">
+    <a href="#inicio" class="nav-logo">
+      <div class="logo-circle"><img src="images/logo.png" alt="NR SEG Engenharia"></div>
+      <span class="nav-brand">NR SEG ENGENHARIA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#inicio" class="active">Inicio</a></li>
+      <li><a href="#servicos">Servicos</a></li>
+      <li><a href="#treinamentos">Treinamentos</a></li>
+      <li><a href="#sobre">Sobre Nos</a></li>
+      <li><a href="#equipe">Equipe</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <a href="#contato" class="btn-cta">Solicitar Consultoria</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-stripe1"></div>
+  <div class="hero-stripe2"></div>
+  <div class="hero-glow1"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-glow3"></div>
+  <div class="hero-container">
+    <div class="hero-content">
+      <span class="hero-badge">SST e Engenharia</span>
+      <h1>Aumente a seguranca do seu ambiente de trabalho e <span class="accent">reduza os riscos</span> com solucoes personalizadas.</h1>
+      <p class="hero-desc">A NR SEG ENGENHARIA e uma empresa especializada em Saude e Seguranca do Trabalho, atuando em Petrolina - PE e em todo o Vale do Sao Francisco. Sua atuacao abrange as areas de Meio Ambiente, Saude e Seguranca do Trabalho.</p>
+      <div class="hero-btns">
+        <a href="#contato" class="btn-primary">Solicitar Consultoria</a>
+        <a href="#servicos" class="btn-ghost">Conhecer Servicos <i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="images/nielton-hero.png" alt="Nielton Araujo - NR SEG Engenharia">
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why-sec" id="sobre">
+  <div class="container">
+    <div class="why-header">
+      <div class="why-header-left">
+        <span class="badge">Por que a NR SEG Engenharia</span>
+        <h2 class="sec-title">Diagnostico preciso.<br>Equipe que resolve com solidez.</h2>
+      </div>
+      <div class="why-header-right">
+        <p>Atuamos com rigor normativo para que industrias, comercios e fazendas do Vale do Sao Francisco operem com tranquilidade juridica e protecao integral da equipe.</p>
+      </div>
+    </div>
+    <div class="why-cards">
+      <div class="why-card">
+        <div class="wc-icon"><i data-lucide="scan-search"></i></div>
+        <div class="wc-title">Diagnostico Preciso e Especializado</div>
+        <div class="wc-desc">Identificamos falhas de seguranca e riscos ocultos antes que se transformem em autuacoes, multas pesadas ou acidentes operacionais.</div>
+        <div class="wc-tag"><i data-lucide="check-circle"></i> Prevencao Ativa</div>
+      </div>
+      <div class="why-card">
+        <div class="wc-icon"><i data-lucide="shield-check"></i></div>
+        <div class="wc-title">Conformidade Total com as NRs</div>
+        <div class="wc-desc">Adequacao completa a todas as Normas Regulamentadoras vigentes, garantindo blindagem legal ao empregador e eSocial sem divergencias.</div>
+        <div class="wc-tag"><i data-lucide="check-circle"></i> Blindagem Legal</div>
+      </div>
+      <div class="why-card">
+        <div class="wc-icon"><i data-lucide="map-pin"></i></div>
+        <div class="wc-title">Atendimento Regional Vale do Sao Francisco</div>
+        <div class="wc-desc">Agilidade presencial em Petrolina, Juazeiro, Lagoa Grande, Santa Maria da Boa Vista e todo o polo agroindustrial e fruticola.</div>
+        <div class="wc-tag"><i data-lucide="arrow-down-right"></i> Presenca em Campo</div>
+      </div>
+      <div class="why-card">
+        <div class="wc-icon"><i data-lucide="graduation-cap"></i></div>
+        <div class="wc-title">Equipe de Mestres e Peritos</div>
+        <div class="wc-desc">Direcao tecnica de ponta com engenheiros que atuam como Peritos Judiciais, Assistentes Tecnicos e Professores Universitarios.</div>
+        <div class="wc-tag"><i data-lucide="star"></i> Rigor Academico</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-sec" id="servicos">
+  <div class="container">
+    <span class="badge">Solucoes Integradas em SST e Engenharia</span>
+    <h2 class="sec-title" style="margin-top:4px;margin-bottom:12px;">Esses sao os nossos servicos</h2>
+    <p class="sec-sub">Sua empresa esta preparada para enfrentar as exigencias legais e proteger a vida de seus colaboradores? Na NR SEG ENGENHARIA, oferecemos uma consultoria completa para garantir o cumprimento das normas de Seguranca e Saude do Trabalho, com foco na prevencao de riscos, protecao ao trabalhador e sustentabilidade. Deixe a seguranca nas maos de especialistas, enquanto voce foca no crescimento do seu negocio.</p>
+
+    <div class="services-tabs">
+      <button class="tab-btn active" onclick="switchTab('tab-svc',this)"><i data-lucide="settings-2"></i> Servicos e Consultoria</button>
+      <button class="tab-btn" onclick="switchTab('tab-proj',this)"><i data-lucide="drafting-compass"></i> Projetos de Engenharia</button>
+      <button class="tab-btn" onclick="switchTab('tab-prog',this)"><i data-lucide="layout-list"></i> Programas Normativos</button>
+      <button class="tab-btn" onclick="switchTab('tab-laud',this)"><i data-lucide="file-check-2"></i> Laudos Tecnicos</button>
+    </div>
+
+    <!-- Servicos e Consultoria -->
+    <div class="svc-grid active" id="tab-svc">
+      <div class="svc-card">
+        <div class="svc-badge">SST</div>
+        <h3>Gestao de eSocial</h3>
+        <p>Envio seguro dos eventos S-2210 (CAT), S-2220 (Monitoramento de Saude), S-2221 e S-2240 (Condicoes Ambientais).</p>
+        <div class="svc-tag">Obrigatoriedade Legal</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">AET</div>
+        <h3>AET - Analise Ergonomica do Trabalho</h3>
+        <p>Analise Ergonomica do Trabalho conforme a NR-17 para adaptacao postural, biomecanica e cognitiva.</p>
+        <div class="svc-tag">NR-17 Vigente</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">APR</div>
+        <h3>APR - Analise Preliminar de Riscos</h3>
+        <p>Mapeamento preventivo detalhado de perigos operacionais antes da liberacao de tarefas criticas em campo.</p>
+        <div class="svc-tag">Prevencao Critica</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">HO</div>
+        <h3>Avaliacoes de Agentes Ambientais</h3>
+        <p>Medicoes quantitativas de Ruido (dosimetrias), Calor (IBUTG), Vibracoes Ocupacionais e Agentes Quimicos.</p>
+        <div class="svc-tag">Higiene Ocupacional</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">DIR</div>
+        <h3>DIR - Declaracao de Inexistencia de Riscos</h3>
+        <p>Declaracao de Inexistencia de Riscos para MEI/ME/EPP e elaboracao tecnica de Planos de Acao de Emergencia.</p>
+        <div class="svc-tag">Dispensa e Plano</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PE</div>
+        <h3>Plano de Emergencia</h3>
+        <p>Elaboracao e implantacao de planos de emergencia com brigadas, rotas de fuga e simulados praticos.</p>
+        <div class="svc-tag">Seguranca Operacional</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PPP</div>
+        <h3>PPP - Perfil Profissiografico Previdenciario</h3>
+        <p>Emissao do documento que registra as condicoes ambientais de trabalho do colaborador ao longo do contrato.</p>
+        <div class="svc-tag">Previdencia Social</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PER</div>
+        <h3>Pericias - Assistencia Tecnica</h3>
+        <p>Assistencia Tecnica Pericial para Pericias de Insalubridade e Periculosidade em processos judiciais trabalhistas.</p>
+        <div class="svc-tag">Pericia Judicial</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">CT</div>
+        <h3>Consultoria Tecnica</h3>
+        <p>Suporte especializado para adequacao de processos, resposta a autuacoes e planejamento preventivo de SST.</p>
+        <div class="svc-tag">Gestao Preventiva</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">HO</div>
+        <h3>Locacao de Equipamentos de HO</h3>
+        <p>Locacao de instrumentos de Higiene Ocupacional calibrados para dosimetrias, medicoes de calor e vibracoes.</p>
+        <div class="svc-tag">Instrumentos Calibrados</div>
+      </div>
+    </div>
+
+    <!-- Projetos de Engenharia -->
+    <div class="svc-grid" id="tab-proj">
+      <div class="svc-card">
+        <div class="svc-badge">EST</div>
+        <h3>Projetos Estruturais Residenciais</h3>
+        <p>Desenvolvimento de projetos estruturais para edificacoes residenciais com memorial de calculo e ART.</p>
+        <div class="svc-tag">Estrutural</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">LV</div>
+        <h3>Projetos de Linhas de Vida</h3>
+        <p>Sistemas de ancoragem horizontal e vertical para trabalho em altura conforme NR-35 e NBRs vigentes.</p>
+        <div class="svc-tag">Trabalho em Altura</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">EL</div>
+        <h3>Projetos Eletricos Residenciais</h3>
+        <p>Projetos eletricos para residencias e pequenas edificacoes com conformidade a ABNT NBR 5410.</p>
+        <div class="svc-tag">Eletrico</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">AT</div>
+        <h3>Projeto de Aterramento de Instalacoes Eletricas</h3>
+        <p>Dimensionamento e projeto de sistemas de aterramento de instalacoes eletricas industriais e rurais.</p>
+        <div class="svc-tag">NR-10</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PT</div>
+        <h3>Projeto Tecnico (PT)</h3>
+        <p>Elaboracao de Projeto Tecnico completo para licenciamentos, habite-se e regularizacoes perante orgaos competentes.</p>
+        <div class="svc-tag">Licenciamento</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PTS</div>
+        <h3>Projeto Tecnico Simplificado (PTS)</h3>
+        <p>Modalidade simplificada de projeto tecnico para atividades de baixo impacto ambiental e pequeno porte.</p>
+        <div class="svc-tag">Baixo Impacto</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PPCI</div>
+        <h3>Projeto de Protecao Contra Incendio (PPCI)</h3>
+        <p>Elaboracao do PPCI conforme exigencias do Corpo de Bombeiros e normas tecnicas aplicaveis a edificacao.</p>
+        <div class="svc-tag">CBMPE</div>
+      </div>
+    </div>
+
+    <!-- Programas Normativos -->
+    <div class="svc-grid" id="tab-prog">
+      <div class="svc-card">
+        <div class="svc-badge">PGR</div>
+        <h3>PGR - Programa de Gerenciamento de Riscos</h3>
+        <p>Documento base exigido pela NR-1 que identifica, avalia e controla os riscos ocupacionais da empresa.</p>
+        <div class="svc-tag">NR-1 Obrigatorio</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PGRTR</div>
+        <h3>PGRTR - PGR no Trabalho Rural</h3>
+        <p>Versao adaptada do PGR para atividades rurais, fruticultura e agronegocio conforme NR-31.</p>
+        <div class="svc-tag">NR-31 Rural</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PCMSO</div>
+        <h3>PCMSO - Programa de Controle Medico de Saude Ocupacional (NR-7)</h3>
+        <p>Programa de Controle Medico de Saude Ocupacional com coordenacao do medico do trabalho.</p>
+        <div class="svc-tag">NR-7</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PCA</div>
+        <h3>PCA - Programa de Conservacao Auditiva</h3>
+        <p>Programa preventivo para ambientes com exposicao a ruido acima dos limites de tolerancia.</p>
+        <div class="svc-tag">NR-15 Ruido</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PPR</div>
+        <h3>PPR - Programa de Protecao Respiratoria</h3>
+        <p>Implantacao do programa para selecao, uso e manutencao de protetores respiratorios em ambientes com agentes quimicos.</p>
+        <div class="svc-tag">Agentes Quimicos</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PCMAT</div>
+        <h3>PCMAT - Condicoes de Trabalho na Construcao Civil (NR-18)</h3>
+        <p>Programa de Condicoes do Meio Ambiente de Trabalho na Construcao Civil conforme NR-18.</p>
+        <div class="svc-tag">NR-18</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PMOC</div>
+        <h3>Programa de Manutencao, Operacao e Controle (PMOC)</h3>
+        <p>Programa de Manutencao, Operacao e Controle de sistemas de ar condicionado e climatizacao.</p>
+        <div class="svc-tag">Qualidade do Ar</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PGRSS</div>
+        <h3>PGRSS - Residuos Solidos da Saude</h3>
+        <p>Gerenciamento de residuos para clinicas, laboratorios e estabelecimentos de saude.</p>
+        <div class="svc-tag">Saude</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PGRCC</div>
+        <h3>PGRCC - Residuos da Construcao Civil</h3>
+        <p>Plano de gerenciamento de residuos solidos gerados em obras de construcao e demolicao.</p>
+        <div class="svc-tag">Construcao Civil</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PGRS</div>
+        <h3>PGRS - Programa de Gerenciamento de Residuos Solidos</h3>
+        <p>Programa geral de gerenciamento de residuos solidos para industrias, comercios e agronegocio.</p>
+        <div class="svc-tag">Sustentabilidade</div>
+      </div>
+    </div>
+
+    <!-- Laudos Tecnicos -->
+    <div class="svc-grid" id="tab-laud">
+      <div class="svc-card">
+        <div class="svc-badge">LTCAT</div>
+        <h3>Laudo Tecnico das Condicoes Ambientais do Trabalho</h3>
+        <p>Laudo exigido pela Previdencia Social para aposentadoria especial, com avaliacao dos agentes nocivos.</p>
+        <div class="svc-tag">Previdencia</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">NR12</div>
+        <h3>Laudos de Conformidade de Maquinas e Equipamentos</h3>
+        <p>Laudos de conformidade conforme NR-12 com elaboracao de Inventario de Maquinas e Plano de Acao.</p>
+        <div class="svc-tag">NR-12</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">NR13</div>
+        <h3>Laudo de Inspecao de Vasos de Pressao</h3>
+        <p>Inspecao periodica de vasos de pressao, caldeiras e tubulacoes conforme NR-13 e normas ABNT.</p>
+        <div class="svc-tag">NR-13</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">LIE</div>
+        <h3>Laudo de Instalacoes Eletricas (LIE)</h3>
+        <p>Avaliacao das instalacoes eletricas quanto a conformidade com NR-10 e ABNT NBR 5410 e 5419.</p>
+        <div class="svc-tag">NR-10</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">LERG</div>
+        <h3>Laudo Ergonomico</h3>
+        <p>Avaliacao das condicoes ergonomicas dos postos de trabalho com recomendacoes tecnicas de adequacao.</p>
+        <div class="svc-tag">NR-17</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">INS</div>
+        <h3>Laudo de Insalubridade (NR-15)</h3>
+        <p>Laudo tecnico que avalia e classifica o grau de insalubridade (minimo, medio ou maximo) dos postos de trabalho.</p>
+        <div class="svc-tag">NR-15</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">PER</div>
+        <h3>Laudo de Periculosidade (NR-16)</h3>
+        <p>Avaliacao tecnica de atividades e operacoes perigosas com inflamaveis, explosivos e energia eletrica.</p>
+        <div class="svc-tag">NR-16</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">SPDA</div>
+        <h3>Laudo de Avaliacao do Sistema de Aterramento e SPDA</h3>
+        <p>Avaliacao do sistema de aterramento e do Sistema de Protecao contra Descargas Atmosfericas.</p>
+        <div class="svc-tag">NBR 5419</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-badge">DUT</div>
+        <h3>Laudo de Estanqueidade de Dutos de Liquidos e Gases</h3>
+        <p>Ensaio e laudo de estanqueidade de dutos para prevencao de vazamentos e contaminacoes ambientais.</p>
+        <div class="svc-tag">Dutos e Gases</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAININGS -->
+<section class="train-sec" id="treinamentos">
+  <div class="container">
+    <div style="text-align:center;">
+      <span class="badge">Capacitacao Profissional Regulamentada</span>
+      <h2 class="sec-title" style="text-align:center;margin-top:6px;">Nossos Treinamentos</h2>
+      <p class="sec-sub" style="margin:14px auto 0;text-align:center;">Cursos praticos e teoricos ministrados por instrutores qualificados, com emissao de certificados validos em todo o territorio nacional e registro nos conselhos competentes.</p>
+    </div>
+    <div class="train-grid">
+      <div class="train-card">
+        <span class="tnr">NR-07</span>
+        <span class="ticon"><i data-lucide="heart-pulse"></i></span>
+        <div class="ttitle">Primeiros Socorros</div>
+        <div class="tdesc">Nocoes fundamentais de atendimento de urgencia, reanimacao e estabilizacao de vitimas.</div>
+        <div class="ttag">Certificado Oficial</div>
+      </div>
+      <div class="train-card">
+        <span class="tnr">NR-05</span>
+        <span class="ticon"><i data-lucide="users"></i></span>
+        <div class="ttitle">Formacao e Designado da CIPA</div>
+        <div class="tdesc">Capacitacao para membros da comissao interna com foco em prevencao e investigacao de incidentes.</div>
+        <div class="ttag">Carga Horaria Legal</div>
+      </div>
+      <div class="train-card">
+        <span class="tnr">NR-06</span>
+        <span class="ticon"><i data-lucide="hard-hat"></i></span>
+        <div class="ttitle">EPI - Protecao Individual</div>
+        <div class="tdesc">Uso correto, guarda, higienizacao e conscientizacao para uso continuo de equipamentos de protecao.</div>
+        <div class="ttag">Pratico e Teorico</div>
+      </div>
+      <div class="train-card">
+        <span class="tnr">NR-10</span>
+        <span class="ticon"><i data-lucide="zap"></i></span>
+        <div class="ttitle">Seguranca em Eletricidade</div>
+        <div class="tdesc">Cursos Basico e SEP (Sistema Eletrico de Potencia) para profissionais eletricistas.</div>
+        <div class="ttag">Basico e Reciclagem</div>
+      </div>
+      <div class="train-card">
+        <span class="tnr">NR-12</span>
+        <span class="ticon"><i data-lucide="settings"></i></span>
+        <div class="ttitle">Maquinas e Equipamentos</div>
+        <div class="tdesc">Operacao segura de maquinario industrial, prensas, tornos e tratores agricolas.</div>
+        <div class="ttag">Normativo e Seguro</div>
+      </div>
+      <div class="train-card">
+        <span class="tnr">NR-18</span>
+        <span class="ticon"><i data-lucide="building-2"></i></span>
+        <div class="ttitle">Treinamento Admissional</div>
+        <div class="tdesc">Integracao obrigatoria para trabalhadores da construcao civil antes do acesso a obra.</div>
+        <div class="ttag">Obrigatorio Construcao</div>
+      </div>
+      <div class="train-card">
+        <span class="tnr">NR-23</span>
+        <span class="ticon"><i data-lucide="flame"></i></span>
+        <div class="ttitle">Brigada de Incendio</div>
+        <div class="tdesc">Formacao de brigadistas, manuseio pratico de extintores, mangueiras e hidrantes.</div>
+        <div class="ttag">Pratica Real de Fogo</div>
+      </div>
+      <div class="train-card">
+        <span class="tnr">NR-31</span>
+        <span class="ticon"><i data-lucide="sprout"></i></span>
+        <div class="ttitle">CIPATR e Agro Rural</div>
+        <div class="tdesc">Capacitacao especifica da Comissao Interna de Prevencao de Acidentes no Trabalho Rural.</div>
+        <div class="ttag">Foco Fruticultura</div>
+      </div>
+      <div class="train-card">
+        <span class="tnr">NR-33</span>
+        <span class="ticon"><i data-lucide="alert-triangle"></i></span>
+        <div class="ttitle">Espaco Confinado</div>
+        <div class="tdesc">Capacitacao para Trabalhadores Autorizados, Vigias e Supervisores de Entrada.</div>
+        <div class="ttag">Permissao de Entrada</div>
+      </div>
+      <div class="train-card">
+        <span class="tnr">NR-35</span>
+        <span class="ticon"><i data-lucide="mountain-snow"></i></span>
+        <div class="ttitle">Trabalho em Altura</div>
+        <div class="tdesc">Tecnicas de ancoragem, uso de cinto tipo paraquedista, talabarte e resgate emergencial.</div>
+        <div class="ttag">Treinamento Pratico</div>
+      </div>
+      <div class="train-card">
+        <span class="tnr">SIMULADO</span>
+        <span class="ticon"><i data-lucide="bell-ring"></i></span>
+        <div class="ttitle">Evacuacao de Area</div>
+        <div class="tdesc">Simulados praticos de abandono de edificacoes industriais e rotas de fuga seguras.</div>
+        <div class="ttag">Gestao de Panico</div>
+      </div>
+      <div class="train-card">
+        <span class="tnr">AGRO e AUDITORIA</span>
+        <span class="ticon"><i data-lucide="award"></i></span>
+        <div class="ttitle">Certificacoes em Fazendas</div>
+        <div class="tdesc">Treinamentos de SST para atendimento a auditorias internacionais (GlobalGAP, GRASP, Fair Trade).</div>
+        <div class="ttag">Padrao Exportacao</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MVV -->
+<section class="mvv-sec">
+  <div class="container">
+    <div style="text-align:center;">
+      <span class="badge">Institucional</span>
+      <h2 class="sec-title" style="color:#fff;text-align:center;text-transform:uppercase;letter-spacing:2px;margin-top:6px;">Missao, Visao e Valores</h2>
+      <div style="width:38px;height:3px;background:var(--green-light);margin:12px auto 0;border-radius:2px;"></div>
+    </div>
+    <div class="mvv-cards">
+      <div class="mvv-card">
+        <div class="mvv-icon"><i data-lucide="flag"></i></div>
+        <h3>Missao</h3>
+        <p>"A NR SEG ENGENHARIA tem a missao de prestar servicos de qualidade em gestao Saude, Meio Ambiente e Seguranca do Trabalho, de maneira a garantir a satisfacao dos nossos clientes tendo como objetivo principal respeitar o bem mais precioso: <strong style="color:#fff;font-style:normal;">a vida</strong>."</p>
+        <div class="mvv-foot"><i data-lucide="heart"></i> Compromisso com a Vida</div>
+      </div>
+      <div class="mvv-card">
+        <div class="mvv-icon"><i data-lucide="eye"></i></div>
+        <h3>Visao</h3>
+        <p>"Tornar-se uma empresa de referencia em Seguranca do trabalho e ser reconhecida nacionalmente pela excelencia nos servicos prestados."</p>
+        <div class="mvv-foot"><i data-lucide="star"></i> Excelencia Nacional</div>
+      </div>
+      <div class="mvv-card">
+        <div class="mvv-icon"><i data-lucide="scale"></i></div>
+        <h3>Valores</h3>
+        <div class="val-tags" id="val-tags">
+          <span class="val-tag">Compromisso</span>
+          <span class="val-tag">Etica</span>
+          <span class="val-tag">Excelencia e qualidade</span>
+          <span class="val-tag">Responsabilidade Social</span>
+          <span class="val-tag">Profissionalismo</span>
+          <span class="val-tag">Respeito aos clientes e meio ambiente</span>
+          <span class="val-tag">Seguranca e integridade</span>
+        </div>
+        <div class="mvv-foot"><i data-lucide="check-circle-2"></i> Conduta Inegociavel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-sec" id="equipe">
+  <div class="container">
+    <div style="text-align:center;">
+      <span class="badge">Corpo Tecnico Diretivo</span>
+      <h2 class="sec-title" style="text-align:center;text-transform:uppercase;letter-spacing:2px;margin-top:6px;">Nossa Equipe</h2>
+      <p class="sec-sub" style="margin:12px auto 0;text-align:center;">Direcao qualificada com experiencia comprovada em grandes polos agricolas, industrias e docencia no Vale do Sao Francisco.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="tc-photo">
+          <img src="images/nielton-equipe.png" alt="Nielton Araujo">
+        </div>
+        <div class="tc-info">
+          <span class="tc-role-badge">Diretor Tecnico</span>
+          <h3>Nielton Araujo</h3>
+          <div class="tc-role">Engenheiro de Seguranca do Trabalho</div>
+          <ul class="tc-list">
+            <li><i data-lucide="check"></i>Engenheiro Ambiental, Engenheiro Civil e Engenheiro de Seguranca do Trabalho.</li>
+            <li><i data-lucide="check"></i>Perito Judicial e Perito Assistente Tecnico com atuacao em tribunais.</li>
+            <li><i data-lucide="check"></i>Diretor da Empresa NR SEG Engenharia desde 2017.</li>
+            <li><i data-lucide="check"></i>Coordenador e Professor dos cursos de Engenharia da Uninassau - Petrolina.</li>
+            <li><i data-lucide="check"></i>Engenheiro de Seguranca do Trabalho na Fazenda Frutos do Sol - Grupo ARA.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="tc-photo">
+          <img src="images/amanda-equipe.png" alt="Amanda Souza">
+        </div>
+        <div class="tc-info">
+          <span class="tc-role-badge">Gerente Tecnica</span>
+          <h3>Amanda Souza</h3>
+          <div class="tc-role">Engenheira de Seguranca do Trabalho</div>
+          <ul class="tc-list">
+            <li><i data-lucide="check"></i>Engenheira Agronoma e Engenheira de Seguranca do Trabalho.</li>
+            <li><i data-lucide="check"></i>Gerente da NR SEG Engenharia.</li>
+            <li><i data-lucide="check"></i>Mestre e Doutora com vasta producao cientifica e tecnica.</li>
+            <li><i data-lucide="check"></i>Perita Assistente em processos trabalhistas e agropecuarios.</li>
+            <li><i data-lucide="check"></i>Coordenadora e Docente no curso de Agronomia da UNINASSAU Petrolina.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-sec" id="contato">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <span class="badge">Area de Atendimento</span>
+        <h2 class="cl-title">Nossa Localizacao e Atendimento Regional</h2>
+        <p class="cl-desc">Atendemos empresas, industrias, polos agricolas e fazendas em Petrolina - PE e em todo o Vale do Sao Francisco com agilidade de deslocamento e suporte in loco.</p>
+        <div class="map-wrap">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125112.49956905783!2d-40.57398965!3d-9.3832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x773b56dfcf12f97%3A0xe97ea3e76a6b5b32!2sPetrolina%2C%20PE!5e0!3m2!1spt-BR!2sbr!4v1699900000000"
+            width="100%" height="280" style="border:0;display:block;"
+            allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+      <div>
+        <div class="form-card">
+          <span class="form-badge">Contato Direto</span>
+          <h3>Seu proximo passo, com orientacao tecnica.</h3>
+          <p class="form-sub">Voce nao precisa dominar todos os codigos das NRs. Conte o que sua empresa necessita e nossos peritos preparam o plano ideal.</p>
+          <div class="form-row">
+            <div class="fgrp">
+              <label>Qual o seu nome?</label>
+              <input type="text" id="f-nome" placeholder="Seu nome completo">
+            </div>
+            <div class="fgrp">
+              <label>Sua Cidade / Fazenda?</label>
+              <input type="text" id="f-cidade" placeholder="Ex: Petrolina - PE">
+            </div>
+          </div>
+          <div class="fgrp" style="margin-bottom:13px;">
+            <label>Qual a necessidade da sua empresa?</label>
+            <select id="f-svc">
+              <option value="">Consultoria Geral de SST e eSocial</option>
+              <option>PGR - Programa de Gerenciamento de Riscos</option>
+              <option>PCMSO - Programa de Controle Medico</option>
+              <option>Gestao de eSocial</option>
+              <option>Laudos de Insalubridade e Periculosidade</option>
+              <option>Treinamentos NR</option>
+              <option>Projetos de Engenharia</option>
+              <option>Pericia Judicial</option>
+              <option>Certificacoes em Fazendas (GlobalGAP / GRASP)</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="fgrp">
+            <label>Observacoes ou numero de colaboradores (opcional)</label>
+            <textarea id="f-obs" placeholder="Ex: Temos 40 funcionarios e precisamos do PGR e treinamentos de NR-35."></textarea>
+          </div>
+          <a href="#" class="btn-wpp" id="btn-wpp" onclick="enviarWpp(event)">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Enviar no WhatsApp
+          </a>
+          <p class="form-note">Ao clicar, voce sera direcionado para o nosso WhatsApp oficial com a mensagem pre-formatada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="foot-logo"><img src="images/logo.png" alt="NR SEG Engenharia"></div>
+        <p class="foot-desc">Empresa especializada em Saude e Seguranca do Trabalho, Meio Ambiente e Engenharia. Atuacao presencial e pericial em Petrolina - PE e em todo o Vale do Sao Francisco.</p>
+        <div class="foot-socials">
+          <a href="#" class="soc-btn" title="WhatsApp">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="mailto:contato@nrsegengenharia.com.br" class="soc-btn" title="Email"><i data-lucide="mail"></i></a>
+          <a href="#" class="soc-btn" title="Instagram"><i data-lucide="instagram"></i></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Navegacao</h4>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#servicos">Servicos</a></li>
+          <li><a href="#treinamentos">Treinamentos</a></li>
+          <li><a href="#sobre">Sobre Nos</a></li>
+          <li><a href="#equipe">Equipe</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Conformidade</h4>
+        <ul>
+          <li><a href="#">eSocial Conformidade</a></li>
+          <li><a href="#">Certificacoes Tecnicas</a></li>
+          <li><a href="#">Politica de Privacidade</a></li>
+          <li><a href="#">Termos de Uso</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Contato</h4>
+        <div class="fc-item"><span class="fc-ico"><i data-lucide="map-pin"></i></span><span>Petrolina - PE e Vale do Sao Francisco</span></div>
+        <div class="fc-item"><span class="fc-ico"><i data-lucide="phone"></i></span><span>(87) 99999-0000</span></div>
+        <div class="fc-item"><span class="fc-ico"><i data-lucide="mail"></i></span><span>contato@nrsegengenharia.com.br</span></div>
+        <div class="fc-item"><span class="fc-ico"><i data-lucide="clock"></i></span><span>Segunda a Sexta: 08h as 18h</span></div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>&#169; 2024 NR SEG ENGENHARIA. Todos os direitos reservados. Petrolina - PE e Vale do Sao Francisco.</p>
+      <a href="#top" class="back-top">Voltar ao topo <i data-lucide="arrow-up"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Init Lucide icons
+  lucide.createIcons()
+
+  // Services tabs
+  function switchTab(id, btn) {
+    document.querySelectorAll('.svc-grid').forEach(g => g.classList.remove('active'))
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'))
+    document.getElementById(id).classList.add('active')
+    btn.classList.add('active')
+  }
+
+  // Values cycling animation
+  const tags = document.querySelectorAll('#val-tags .val-tag')
+  let cur = 0
+  function cycleVals() {
+    tags.forEach(t => t.classList.remove('lit'))
+    tags[cur].classList.add('lit')
+    cur = (cur + 1) % tags.length
+  }
+  cycleVals()
+  setInterval(cycleVals, 1100)
+
+  // Active nav on scroll
+  const secs = document.querySelectorAll('section[id]')
+  const navLinks = document.querySelectorAll('.nav-links a')
+  window.addEventListener('scroll', () => {
+    let curr = ''
+    secs.forEach(s => { if (window.scrollY >= s.offsetTop - 120) curr = s.id })
+    navLinks.forEach(a => {
+      a.classList.remove('active')
+      if (a.getAttribute('href') === '#' + curr) a.classList.add('active')
+    })
+  }, { passive: true })
+
+  // WhatsApp form
+  function enviarWpp(e) {
+    e.preventDefault()
+    const nome = document.getElementById('f-nome').value.trim() || 'Nao informado'
+    const cidade = document.getElementById('f-cidade').value.trim() || 'Nao informada'
+    const svc = document.getElementById('f-svc').value || 'Consultoria Geral'
+    const obs = document.getElementById('f-obs').value.trim()
+    let msg = 'Ola, NR SEG Engenharia!\n\nMeu nome e *' + nome + '*, de *' + cidade + '*.\n\nPreciso de: *' + svc + '*'
+    if (obs) msg += '\n\nObservacoes: ' + obs
+    window.open('https://wa.me/5587999990000?text=' + encodeURIComponent(msg), '_blank')
+  }
+</script>
+</body>
+</html>
